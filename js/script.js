@@ -6,6 +6,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const resetButton = document.getElementById('resetButton');
     const reverseButton = document.getElementById('reverseButton');
 
+    
+    // Fungsi untuk menangani konversi Celcius ke Fahrenheit
     convertButton.addEventListener('click', function() {
         const celcius = parseFloat(celciusInput.value);
         if (!isNaN(celcius)) {
@@ -16,13 +18,34 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('Masukkan suhu yang valid dalam Celcius >_<');
         }
     });
-
+    
+    let resetClickCount = 0;
+    let resetTimer;
+    
+    // Fungsi untuk mereset input
     resetButton.addEventListener('click', function() {
         celciusInput.value = '';
         resultInput.value = '';
         caraKonversiInput.value = '';
+
+        resetClickCount++;
+
+        // Jika tombol reset ditekan 5 kali dalam 1 detik
+        if (resetClickCount === 5) {
+            alert('Udah bang 🗿');
+            resetClickCount = 0; 
+            clearTimeout(resetTimer); 
+        }
+
+        // Set timer untuk mereset counter setelah 1 detik
+        if (resetClickCount === 1) {
+            resetTimer = setTimeout(function() {
+                resetClickCount = 0; //
+            }, 1000); 
+        }
     });
 
+    // Fungsi untuk membalik konversi (Fahrenheit ke Celcius)
     reverseButton.addEventListener('click', function() {
         const fahrenheit = parseFloat(resultInput.value);
         if (!isNaN(fahrenheit)) {
