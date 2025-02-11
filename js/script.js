@@ -11,9 +11,9 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!isNaN(celcius)) {
             const fahrenheit = (celcius * 9/5) + 32;
             resultInput.value = fahrenheit.toFixed(2);
-            caraKonversiInput.value = `(${celcius}°C × 9/5) + 32 = ${fahrenheit.toFixed(2)}°F`;
+            caraKonversiInput.value = `(${celcius}°C * 9/5) + 32 = ${fahrenheit.toFixed(2)}°F`;
         } else {
-            alert('Masukkan suhu yang valid dalam Celcius.');
+            alert('Masukkan suhu yang valid dalam Celcius >_<');
         }
     });
 
@@ -28,9 +28,9 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!isNaN(fahrenheit)) {
             const celcius = (fahrenheit - 32) * 5/9;
             celciusInput.value = celcius.toFixed(2);
-            caraKonversiInput.value = `(${fahrenheit}°F - 32) × 5/9 = ${celcius.toFixed(2)}°C`;
+            caraKonversiInput.value = `(${fahrenheit}°F - 32) * 5/9 = ${celcius.toFixed(2)}°C`;
         } else {
-            alert('Tidak ada hasil konversi yang valid untuk dibalik.');
+            alert('Tidak ada hasil konversi yang valid untuk dibalik T_T');
         }
     });
 });
