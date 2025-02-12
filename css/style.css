@@ -29,6 +29,10 @@ section {
     padding: 8px;
 }
 
+label{
+    font-weight: bold;
+}
+
 .input-group {
     display: flex;
     flex-direction: column;
@@ -66,6 +70,7 @@ button {
 button:hover {
     transform: scale(1.05);
     opacity: 0.9;
+    color: white;
 }
 
 
@@ -108,6 +113,23 @@ button:active {
 
 .bg-lightgreen:active {
     background-color: #76c776;
+}
+
+.link-konversi {
+    margin-top: 20px;
+    text-align: left;
+    padding: 8px;
+}
+
+.link-konversi a {
+    text-decoration: none;
+    color: #007BFF;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.link-konversi a:hover {
+    color: #0056b3;
 }
 
 .remark {
