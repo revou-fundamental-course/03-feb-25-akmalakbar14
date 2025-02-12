@@ -1,33 +1,39 @@
+// Menjalankan kode setelah seluruh dokumen selesai dimuat
 document.addEventListener('DOMContentLoaded', function() {
+    // Mengambil elemen-elemen input dan tombol dari HTML
     const celciusInput = document.getElementById('main-input');
     const resultInput = document.getElementById('main-result');
     const caraKonversiInput = document.getElementById('cara-konversi');
     const convertButton = document.getElementById('convertButton');
     const resetButton = document.getElementById('resetButton');
     const reverseButton = document.getElementById('reverseButton');
+    const konversiLabel = document.querySelector("label[for='main-input']");
+    const hasilLabel = document.querySelector("label[for='main-result']");
     const konversiLink = document.getElementById('konversi-link');
-
-    // Variabel untuk menghitung klik reset
+    
+    // Variabel untuk melacak klik reset dan mode konversi
     let resetClickCount = 0;
     let resetTimer;
-
-    // Variabel untuk menyimpan arah konversi
     let isCelciusToFahrenheit = true;
 
-    // Fungsi untuk mengubah teks link konversi dan placeholder
-    function updateKonversiLink() {
+    // Fungsi untuk memperbarui tampilan UI berdasarkan mode konversi
+    function updateKonversiUI() {
         if (isCelciusToFahrenheit) {
-            konversiLink.textContent = 'Konversi Celcius ke Fahrenheit';
-            celciusInput.placeholder = 'Masukkan suhu dalam Celsius';
+            konversiLabel.textContent = 'Celcius (°C)';
+            hasilLabel.textContent = 'Fahrenheit (°F)';
+            celciusInput.placeholder = 'Masukkan suhu dalam Celcius';
             resultInput.placeholder = 'Hasil konversi ke Fahrenheit';
+            konversiLink.textContent = 'Konversi Celcius ke Fahrenheit';
         } else {
-            konversiLink.textContent = 'Konversi Fahrenheit ke Celcius';
+            konversiLabel.textContent = 'Fahrenheit (°F)';
+            hasilLabel.textContent = 'Celcius (°C)';
             celciusInput.placeholder = 'Masukkan suhu dalam Fahrenheit';
-            resultInput.placeholder = 'Hasil konversi ke Celsius';
+            resultInput.placeholder = 'Hasil konversi ke Celcius';
+            konversiLink.textContent = 'Konversi Fahrenheit ke Celcius';
         }
     }
 
-    // Fungsi untuk menangani konversi
+    // Event listener untuk tombol konversi
     convertButton.addEventListener('click', function() {
         if (isCelciusToFahrenheit) {
             const celcius = parseFloat(celciusInput.value);
@@ -50,62 +56,62 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Fungsi untuk mereset input dan mengembalikan ke default
+    // Event listener untuk tombol reset
     resetButton.addEventListener('click', function() {
         celciusInput.value = '';
         resultInput.value = '';
         caraKonversiInput.value = '';
-
-        // Kembalikan arah konversi ke default (Celsius ke Fahrenheit)
+        
+        // Mengembalikan mode konversi ke default jika perlu
         if (!isCelciusToFahrenheit) {
             isCelciusToFahrenheit = true;
-            updateKonversiLink(); 
+            updateKonversiUI();
         }
 
-        // Menghitung klik reset
+        // Menghitung jumlah klik reset dalam satu detik
         resetClickCount++;
-
-        // Jika tombol reset ditekan 5 kali dalam 1 detik
         if (resetClickCount === 5) {
             alert('udah bang🗿');
-            resetClickCount = 0; 
-            clearTimeout(resetTimer); 
+            resetClickCount = 0;
+            clearTimeout(resetTimer);
         }
-
-        // Set timer untuk mereset counter setelah 1 detik
         if (resetClickCount === 1) {
             resetTimer = setTimeout(function() {
                 resetClickCount = 0;
-            }, 1000); //
+            }, 1000);
         }
     });
 
-    // Fungsi untuk membalik arah konversi
+    // Event listener untuk tombol reverse (membalik konversi)
     reverseButton.addEventListener('click', function() {
-        isCelciusToFahrenheit = !isCelciusToFahrenheit; 
-        updateKonversiLink(); 
+        isCelciusToFahrenheit = !isCelciusToFahrenheit;
+        updateKonversiUI();
 
-        // Swap nilai input dan hasil
+        // Menukar nilai input dan hasil
         const temp = celciusInput.value;
         celciusInput.value = resultInput.value;
         resultInput.value = temp;
 
-        // Perbarui cara konversi
+        // Memperbarui cara konversi berdasarkan mode
         if (isCelciusToFahrenheit) {
             const celcius = parseFloat(celciusInput.value);
             if (!isNaN(celcius)) {
                 const fahrenheit = (celcius * 9/5) + 32;
                 caraKonversiInput.value = `(${celcius}°C * 9/5) + 32 = ${fahrenheit.toFixed(2)}°F`;
+            } else {
+                caraKonversiInput.value = '';
             }
         } else {
             const fahrenheit = parseFloat(celciusInput.value);
             if (!isNaN(fahrenheit)) {
                 const celcius = (fahrenheit - 32) * 5/9;
                 caraKonversiInput.value = `(${fahrenheit}°F - 32) * 5/9 = ${celcius.toFixed(2)}°C`;
+            } else {
+                caraKonversiInput.value = '';
             }
         }
     });
 
-    // Inisialisasi teks link konversi dan placeholder
-    updateKonversiLink();
+    // Memperbarui UI saat halaman pertama kali dimuat
+    updateKonversiUI();
 });
